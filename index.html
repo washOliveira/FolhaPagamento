@@ -11,9 +11,6 @@
 	}
 </style>
 
-<!-- JavaScript -->
-<script type="text/javascript" src="js/myJs.js"></script>
-
 </head>
 
 <body>
@@ -40,9 +37,9 @@
 							<label class="control-label col-sm-3">Descontos:</label>
 							<div class="col-sm-9">
 							 	<div class="checkbox">
-						    	<label><input type="checkbox" id="idCheckInss"> INSS</label>
+									<label><input type="checkbox" id="idCheckInss"> INSS</label>
 								</div>
-
+								
 								<div class="checkbox">
 									<label>
 										<input type="checkbox" id="idCheckVr"> Auxílio Alimentação
@@ -51,29 +48,26 @@
 										</div>
 									</label>
 								</div>
-
 								<div class="checkbox">
 									<label><input type="checkbox" id="idCheckVt"> Auxílio Transporte</label>
-						  	</div>
-
+								</div>
 								<div class="checkbox">
 									<label><input type="checkbox" id="idCheckIr"> Imposto de Renda</label>
 								</div>
-
 								<div class="checkbox">
 									<label>
 										<input type="checkbox" id="idCheckSaude"> Plano de Saúde
 										<div class="clic" style="display:none">
 											<input type="text" class="form-control" id="idValorSaude" placeholder=" Valor (R$)"/>
 										</div>
+									</label>
 								</div>
-
 							</div>
 						</div>
 
 						<div class="form-group">
 							<div class="col-sm-offset-3 col-sm-9">
-								<button type="button" class="btn btn-primary" id="valor" onclick="calculo();">Calcular</button>
+								<button type="button" class="btn btn-primary" id="buttonValor" onclick="folhaPagamento();">Calcular</button>
 							</div>
 						</div>
 					</form>
@@ -138,68 +132,6 @@
 						</tr>
 					</table>
 				</div><!-- Fim Tabela apoio -->
-
-				<div><!-- Tabela orçamento -->
-					<table class="table table-striped">
-						<caption>Tabela de Orçamento</caption>
-						<thead><!-- Cabeçalho da lista -->
-							<th>Distribuição</th>
-							<th>(%)</th>
-							<th>Valor (R$)</th>
-						</thead>
-						<tr>
-							<td>Essencial</td>
-							<td id="idLinhaAliEssencial"></td>
-							<td id="idLinhaValorEssencial" value=""></td>
-						</tr>
-						<tr>
-							<td>Aposentadoria</td>
-							<td id="idLinhaAliAposentadoria"></td>
-							<td id="idLinhaValorAposentadoria" value=""></td>
-						</tr>
-						<tr>
-							<td>Educação</td>
-							<td id="idLinhaAliEducacao"></td>
-							<td id="idLinhaValorEducacao" value=""></td>
-						</tr>
-						<tr>
-							<td>Objetivos</td>
-							<td id="idLinhaAliObjetivos"></td>
-							<td id="idLinhaValorObjetivos" value=""></td>
-						</tr>
-						<tr>
-							<td>A Gosto</td>
-							<td id="idLinhaAliGosto"></td>
-							<td id="idLinhaValorGosto" value=""></td>
-						</tr>
-					</table>
-				</div><!-- Fim Tabela orçamento -->
-
-				<div><!-- Tabela Objetivos -->
-					<table class="table table-striped">
-						<caption>Tabela de Objetivos</caption>
-						<thead><!-- Cabeçalho da lista -->
-							<th>Prazo do Objetivo</th>
-							<th>(%)</th>
-							<th>Valor (R$)</th>
-						</thead>
-						<tr>
-							<td>Curto</td>
-							<td id="idLinhaAliCurto"></td>
-							<td id="idLinhaValorCurto" value=""></td>
-						</tr>
-						<tr>
-							<td>Médio</td>
-							<td id="idLinhaAliMedio"></td>
-							<td id="idLinhaValorMedio" value=""></td>
-						</tr>
-						<tr>
-							<td>Longo</td>
-							<td id="idLinhaAliLongo"></td>
-							<td id="idLinhaValorLongo" value=""></td>
-						</tr>
-					</table>
-				</div> <!-- Fim Tabela Objetivos -->
 			</div><!-- Fim Coluna 2 -->
 
 			<div class="col-md-4"><!-- Início Coluna 3 -->
@@ -207,6 +139,9 @@
 
 		</div><!-- Fim Row -->
 	</div><!-- Fim Conteiner -->
+
+	<!-- JavaScript -->
+	<script type="text/javascript" src="js/script.js"></script>
 </body>
 
 </html>
