@@ -1,3 +1,16 @@
+const button = document.getElementById('calc');
+const input = document.getElementById('valor');
+
+function click(){
+		folhaPagamento();
+}
+
+function enter(event){
+	if(event.keyCode === 13){
+		folhaPagamento();
+	}
+}
+
 function folhaPagamento(){
 	const valor = document.getElementById('valor').value;
 	const checkInss = document.getElementById('idCheckInss');
@@ -86,7 +99,7 @@ function folhaPagamento(){
 		}
 		
 		// Tabela de Descontos - Linha Total
-		const total = ((((valor - taxInss) - taxVr) - taxVt) - taxIr) - taxSaude;
+		const total = parseFloat(((((valor - taxInss) - taxVr) - taxVt) - taxIr) - taxSaude);
 		inputTotal(total);
 
 	}else{
@@ -172,9 +185,9 @@ function taxaVR(valorVr, aliVr){
 }
 
 function inputVR(taxVr, aliVr){
-	var taxVrArredondado = parseFloat(taxVr.toFixed(2));
-	var linhaAliVr = document.getElementById('idLinhaAliVr');
-	var linhaValorVr = document.getElementById('idLinhaValorVr');
+	const taxVrArredondado = parseFloat(taxVr.toFixed(2));
+	const linhaAliVr = document.getElementById('idLinhaAliVr');
+	const linhaValorVr = document.getElementById('idLinhaValorVr');
 	linhaAliVr.innerHTML = aliVr;
 	linhaValorVr.innerHTML = taxVrArredondado;
 }
@@ -184,14 +197,14 @@ const objFaixaVT = {
 }
 
 function taxVT(valor){
-        const taxVt = (valor * objFaixaVT.aliVt)/100;
-		return taxVt;
+	const taxVt = (valor * objFaixaVT.aliVt)/100;
+	return taxVt;
 }
 
 function inputVt(taxVt, aliVt){
-	var taxVtArredondado = parseFloat(taxVt.toFixed(2));
-	var linhaAliVt = document.getElementById('idLinhaAliVt');
-	var linhaValorVt = document.getElementById('idLinhaValorVt');
+	const taxVtArredondado = parseFloat(taxVt.toFixed(2));
+	const linhaAliVt = document.getElementById('idLinhaAliVt');
+	const linhaValorVt = document.getElementById('idLinhaValorVt');
 	linhaAliVt.innerHTML = aliVt;
 	linhaValorVt.innerHTML = taxVtArredondado;
 }
@@ -202,6 +215,7 @@ const objFaixaIR = {
 	irF3: 924.40,
 	irF4: 913.63
 }
+
 const objFaixaAliIR = {
 	irAliF1: 0,
 	irAliF2: 7.5,
@@ -211,45 +225,45 @@ const objFaixaAliIR = {
 }
 
 function alicotaIR(baseIr){
-		let aliIr = 0;
-		let taxIr = 0;
-		
-        if(baseIr > 0 && baseIr <= objFaixaIR.irF1){
-          aliIr = objFaixaAliIR.irAliF1;
-        }else if((baseIr - objFaixaIR.irF1) <= objFaixaIR.irF2){
-          aliIr = objFaixaAliIR.irAliF2;
-        }else if(((baseIr - objFaixaIR.irF1) - objFaixaIR.irF2) <= objFaixaIR.irF3){
-          aliIr = objFaixaAliIR.irAliF3;
-        }else if((((baseIr - objFaixaIR.irF1) - objFaixaIR.irF2) - objFaixaIR.irF3) <= objFaixaIR.irF4){
-          aliIr = objFaixaAliIR.irAliF4;
-		}else if(baseIr > (objFaixaIR.irF1 + objFaixaIR.irF2 + objFaixaIR.irF3 + objFaixaIR.irF4)){
-          aliIr = objFaixaAliIR.irAliF5;
-		}
-		return aliIr;
+	let aliIr = 0;
+	let taxIr = 0;
+	
+	if(baseIr > 0 && baseIr <= objFaixaIR.irF1){
+		aliIr = objFaixaAliIR.irAliF1;
+	}else if((baseIr - objFaixaIR.irF1) <= objFaixaIR.irF2){
+		aliIr = objFaixaAliIR.irAliF2;
+	}else if(((baseIr - objFaixaIR.irF1) - objFaixaIR.irF2) <= objFaixaIR.irF3){
+		aliIr = objFaixaAliIR.irAliF3;
+	}else if((((baseIr - objFaixaIR.irF1) - objFaixaIR.irF2) - objFaixaIR.irF3) <= objFaixaIR.irF4){
+		aliIr = objFaixaAliIR.irAliF4;
+	}else if(baseIr > (objFaixaIR.irF1 + objFaixaIR.irF2 + objFaixaIR.irF3 + objFaixaIR.irF4)){
+		aliIr = objFaixaAliIR.irAliF5;
+	}
+	return aliIr;
 }
 
 function taxIR(baseIr){
-		let aliIr = 0;
-		let taxIr = 0;
+	let aliIr = 0;
+	let taxIr = 0;
 		
-        if(baseIr > 0 && baseIr <= objFaixaIR.irF1){
-			taxIr = 0;
-        }else if((baseIr - objFaixaIR.irF1) <= objFaixaIR.irF2){
-			taxIr = ((baseIr - objFaixaIR.irF1) * objFaixaAliIR.irAliF2)/100;
-        }else if(((baseIr - objFaixaIR.irF1) - objFaixaIR.irF2) <= objFaixaIR.irF3){
-			taxIr = ((objFaixaIR.irF2 * objFaixaAliIR.irAliF2)/100) + (((baseIr - objFaixaIR.irF1) - objFaixaIR.irF2) * objFaixaAliIR.irAliF3)/100;
-        }else if((((baseIr - objFaixaIR.irF1) - objFaixaIR.irF2) - objFaixaIR.irF3) <= objFaixaIR.irF4){
-			taxIr = ((objFaixaIR.irF2 * objFaixaAliIR.irAliF2)/100) + ((objFaixaIR.irF3 * objFaixaAliIR.irAliF3)/100) + ((((baseIr - objFaixaIR.irF1) - objFaixaIR.irF2) - objFaixaIR.irF3) * objFaixaAliIR.irAliF4)/100;
-        }else if(baseIr > (objFaixaIR.irF1 + objFaixaIR.irF2 + objFaixaIR.irF3 + objFaixaIR.irF4)){
-			taxIr = ((objFaixaIR.irF2 * objFaixaAliIR.irAliF2)/100) + ((objFaixaIR.irF3 * objFaixaAliIR.irAliF3)/100) + ((objFaixaIR.irF4 * objFaixaAliIR.irAliF4)/100) + (((((baseIr - objFaixaIR.irF1) - objFaixaIR.irF2) - objFaixaIR.irF3) - objFaixaIR.irF4) * objFaixaAliIR.irAliF5)/100;
-		}
-		return taxIr;
+	if(baseIr > 0 && baseIr <= objFaixaIR.irF1){
+		taxIr = 0;
+	}else if((baseIr - objFaixaIR.irF1) <= objFaixaIR.irF2){
+		taxIr = ((baseIr - objFaixaIR.irF1) * objFaixaAliIR.irAliF2)/100;
+	}else if(((baseIr - objFaixaIR.irF1) - objFaixaIR.irF2) <= objFaixaIR.irF3){
+		taxIr = ((objFaixaIR.irF2 * objFaixaAliIR.irAliF2)/100) + (((baseIr - objFaixaIR.irF1) - objFaixaIR.irF2) * objFaixaAliIR.irAliF3)/100;
+	}else if((((baseIr - objFaixaIR.irF1) - objFaixaIR.irF2) - objFaixaIR.irF3) <= objFaixaIR.irF4){
+		taxIr = ((objFaixaIR.irF2 * objFaixaAliIR.irAliF2)/100) + ((objFaixaIR.irF3 * objFaixaAliIR.irAliF3)/100) + ((((baseIr - objFaixaIR.irF1) - objFaixaIR.irF2) - objFaixaIR.irF3) * objFaixaAliIR.irAliF4)/100;
+	}else if(baseIr > (objFaixaIR.irF1 + objFaixaIR.irF2 + objFaixaIR.irF3 + objFaixaIR.irF4)){
+		taxIr = ((objFaixaIR.irF2 * objFaixaAliIR.irAliF2)/100) + ((objFaixaIR.irF3 * objFaixaAliIR.irAliF3)/100) + ((objFaixaIR.irF4 * objFaixaAliIR.irAliF4)/100) + (((((baseIr - objFaixaIR.irF1) - objFaixaIR.irF2) - objFaixaIR.irF3) - objFaixaIR.irF4) * objFaixaAliIR.irAliF5)/100;
+	}
+	return taxIr;
 }
 
 function inputIr(taxIr, aliIr){
-	var taxIrArredondado = parseFloat(taxIr.toFixed(2));
-	var linhaAliIr = document.getElementById('idLinhaAliIr');
-	var linhaValorIr = document.getElementById('idLinhaValorIr');
+	const taxIrArredondado = parseFloat(taxIr.toFixed(2));
+	const linhaAliIr = document.getElementById('idLinhaAliIr');
+	const linhaValorIr = document.getElementById('idLinhaValorIr');
 	linhaAliIr.innerHTML = aliIr;
 	linhaValorIr.innerHTML = taxIrArredondado;
 }
@@ -288,9 +302,9 @@ function taxSAUDE(valor, valorSaude){
 }
 
 function inputSaude(taxSaude, aliSaude){
-	var taxSaudeArredondado = parseFloat(taxSaude.toFixed(2));
-	var linhaAliSaude = document.getElementById('idLinhaAliSaude');
-	var linhaValorSaude = document.getElementById('idLinhaValorSaude');
+	const taxSaudeArredondado = parseFloat(taxSaude.toFixed(2));
+	const	linhaAliSaude = document.getElementById('idLinhaAliSaude');
+	const linhaValorSaude = document.getElementById('idLinhaValorSaude');
 	linhaAliSaude.innerHTML = aliSaude;
 	linhaValorSaude.innerHTML = taxSaudeArredondado;
 }
@@ -320,8 +334,11 @@ function baseIR(valor, taxInss){
 }
 
 function inputBaseIR(baseIr){
-	var baseIrArredondado = parseFloat(baseIr.toFixed(2));
-	var linhaValorBaseIr = document.getElementById('idLinhaValorBaseIr');
+	const baseIrArredondado = parseFloat(baseIr.toFixed(2));
+	const linhaValorBaseIr = document.getElementById('idLinhaValorBaseIr');
 	linhaValorBaseIr.innerHTML = baseIrArredondado;
 }
 // Fim da Tabela de Apoio ------------------
+
+button.addEventListener("click", click);
+input.addEventListener("keypress", enter);
