@@ -1,35 +1,29 @@
 <!DOCTYPE html>
-
 <head>
 <title>Folha de Pagamento</title>
 
 <!-- CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<style>
-	input:checked + .clic {
-  	display: block !important;
-	}
-</style>
-
+<link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 
 <body>
 	<div class="container"><!-- Início Conteiner -->
 		<div class="row"><!-- Início Row -->
-			<div class="col-md-4"><!-- Início Coluna 1 -->
+			<div class="col-md-3"><!-- Início Coluna 1 -->
 			</div><!-- Fim Coluna 1 -->
 
-			<div class="col-md-4 well well-lg"><!-- Início Coluna 2 -->
-				<div class="page-header"><!-- Título -->
+			<div class="col-md-6"><!-- Início Coluna 2 -->
+				<div class="page-header well well-lg"><!-- Título -->
 					<h1>Folha de Pagamento</h1>
 				</div><!-- Fim Título -->
 
-				<div> <!-- Formulário -->
+				<div class="well well-lg"> <!-- Formulário -->
 					<form class="form-horizontal" name="FirstForm">
 						<div class="form-group">
 							<label class="control-label col-sm-3">Valor:</label>
 							<div class="col-sm-9">
-								<input type="text" class="form-control" id="valor" placeholder="Valor Bruto (R$)" name="valor"/>
+								<input id="valor" type="text" class="form-control" placeholder="Valor Bruto (R$)" name="valor"/>
 							</div>
 						</div>
 
@@ -66,14 +60,14 @@
 						</div>
 
 						<div class="form-group">
-							<div class="col-sm-offset-3 col-sm-9">
-								<button type="button" class="btn btn-primary" id="buttonValor" onclick="folhaPagamento();">Calcular</button>
+							<div class="text-center">
+								<button type="button" class="btn btn-primary center-block" id="calc">Calcular</button>
 							</div>
 						</div>
 					</form>
 				</div><!-- Fim Formulário -->
 
-				<div><!-- Tabela de descontos -->
+				<div class="well well-lg"><!-- Tabela de descontos -->
 					<table class="table table-striped">
 						<caption>Tabela de Descontos</caption>
 						<thead><!-- Cabeçalho da lista -->
@@ -113,7 +107,7 @@
 					</table>
 				</div><!-- Fim Tabela de descontos -->
 
-				<div><!-- Tabela apoio -->
+				<div class="well well-lg"><!-- Tabela apoio -->
 					<table class="table table-striped">
 						<caption>Tabela de Apoio</caption>
 						<thead><!-- Cabeçalho da lista -->
@@ -134,7 +128,7 @@
 				</div><!-- Fim Tabela apoio -->
 			</div><!-- Fim Coluna 2 -->
 
-			<div class="col-md-4"><!-- Início Coluna 3 -->
+			<div class="col-md-3"><!-- Início Coluna 3 -->
 			</div><!-- Fim Coluna 3 -->
 
 		</div><!-- Fim Row -->
@@ -143,5 +137,4 @@
 	<!-- JavaScript -->
 	<script type="text/javascript" src="js/script.js"></script>
 </body>
-
 </html>
