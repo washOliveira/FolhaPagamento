@@ -1,0 +1,11 @@
+input:checked + .clic {
+  	display: block !important;
+}
+
+.container {
+	margin-top: 20px;
+}
+	
+.page-header{
+	text-align: center;
+}
