@@ -142,14 +142,14 @@ function inputInss(taxInss, aliInss){
 	const taxInssArredondado = parseFloat(taxInss.toFixed(2));
 	const linhaAliInss = document.getElementById('idLinhaAliInss');
 	const linhaValorInss = document.getElementById('idLinhaValorInss');
-	linhaAliInss.innerHTML = aliInss;
-	linhaValorInss.innerHTML = taxInssArredondado;
+	linhaAliInss.innerHTML = aliInss + " %";
+	linhaValorInss.innerHTML = "R$ " + taxInssArredondado;
 }
 
 function inputTotal(total){
 	const totalArredondado = parseFloat(total.toFixed(2));
 	const linhaTotal = document.getElementById('idLinhaTotal');
-	linhaTotal.innerHTML = totalArredondado;
+	linhaTotal.innerHTML = "R$ " + totalArredondado;
 }
 
 const objFaixaVr = {
@@ -188,8 +188,8 @@ function inputVR(taxVr, aliVr){
 	const taxVrArredondado = parseFloat(taxVr.toFixed(2));
 	const linhaAliVr = document.getElementById('idLinhaAliVr');
 	const linhaValorVr = document.getElementById('idLinhaValorVr');
-	linhaAliVr.innerHTML = aliVr;
-	linhaValorVr.innerHTML = taxVrArredondado;
+	linhaAliVr.innerHTML = aliVr + " %";
+	linhaValorVr.innerHTML = "R$ " + taxVrArredondado;
 }
 
 const objFaixaVT = {
@@ -205,8 +205,8 @@ function inputVt(taxVt, aliVt){
 	const taxVtArredondado = parseFloat(taxVt.toFixed(2));
 	const linhaAliVt = document.getElementById('idLinhaAliVt');
 	const linhaValorVt = document.getElementById('idLinhaValorVt');
-	linhaAliVt.innerHTML = aliVt;
-	linhaValorVt.innerHTML = taxVtArredondado;
+	linhaAliVt.innerHTML = aliVt + " %";
+	linhaValorVt.innerHTML = "R$ " + taxVtArredondado;
 }
 
 const objFaixaIR = {
@@ -264,8 +264,8 @@ function inputIr(taxIr, aliIr){
 	const taxIrArredondado = parseFloat(taxIr.toFixed(2));
 	const linhaAliIr = document.getElementById('idLinhaAliIr');
 	const linhaValorIr = document.getElementById('idLinhaValorIr');
-	linhaAliIr.innerHTML = aliIr;
-	linhaValorIr.innerHTML = taxIrArredondado;
+	linhaAliIr.innerHTML = aliIr + " %";
+	linhaValorIr.innerHTML = "R$ " + taxIrArredondado;
 }
 
 const objFaixaSaude = {
@@ -305,8 +305,8 @@ function inputSaude(taxSaude, aliSaude){
 	const taxSaudeArredondado = parseFloat(taxSaude.toFixed(2));
 	const	linhaAliSaude = document.getElementById('idLinhaAliSaude');
 	const linhaValorSaude = document.getElementById('idLinhaValorSaude');
-	linhaAliSaude.innerHTML = aliSaude;
-	linhaValorSaude.innerHTML = taxSaudeArredondado;
+	linhaAliSaude.innerHTML = aliSaude + " %";
+	linhaValorSaude.innerHTML = "R$ " + taxSaudeArredondado;
 }
 // Fim da Tabela de Desconto ------------------
 
@@ -324,8 +324,8 @@ function inputFgts(taxFgts){
 	const taxFgtsArredondado = parseFloat(taxFgts.toFixed(2));
 	const linhaAliFgts = document.getElementById('idLinhaAliFgts');
 	const linhaValorFgts = document.getElementById('idLinhaValorFgts');
-	linhaAliFgts.innerHTML = objFaixaFGTS.aliFGTS;
-	linhaValorFgts.innerHTML = taxFgtsArredondado;	
+	linhaAliFgts.innerHTML = objFaixaFGTS.aliFGTS + " %";
+	linhaValorFgts.innerHTML = "R$ " + taxFgtsArredondado;	
 }
 
 function baseIR(valor, taxInss){
@@ -336,7 +336,7 @@ function baseIR(valor, taxInss){
 function inputBaseIR(baseIr){
 	const baseIrArredondado = parseFloat(baseIr.toFixed(2));
 	const linhaValorBaseIr = document.getElementById('idLinhaValorBaseIr');
-	linhaValorBaseIr.innerHTML = baseIrArredondado;
+	linhaValorBaseIr.innerHTML = "R$ " + baseIrArredondado;
 }
 // Fim da Tabela de Apoio ------------------
 
