@@ -1,5 +1,6 @@
 const button = document.getElementById('calc');
 const input = document.getElementById('valor');
+const buttonPrint = document.getElementById('print');
 
 function click(){
 		folhaPagamento();
@@ -342,3 +343,11 @@ function inputBaseIR(baseIr){
 
 button.addEventListener("click", click);
 input.addEventListener("keypress", enter);
+
+// Funcionalidade de Impressão -------------
+
+function myprint() {
+  window.print();
+}
+
+buttonPrint.addEventListener("click", myprint);
