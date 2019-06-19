@@ -9,3 +9,7 @@ input:checked + .clic {
 .page-header{
 	text-align: center;
 }
+
+.container {
+	margin-top: 20px;
+}
