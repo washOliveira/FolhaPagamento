@@ -1,3 +1,7 @@
+body{
+	background: linear-gradient(to right, #0A1B60, #7D3B7A);
+}
+
 input:checked + .clic {
   	display: block !important;
 }
