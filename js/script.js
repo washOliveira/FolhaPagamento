@@ -99,6 +99,10 @@ function folhaPagamento(){
 			inputSaude(taxSaude, aliSaude);
 		}
 		
+		// Tabela de Descontos - Linha Total de Descontos
+		const totalDesconto = parseFloat(taxInss + taxVr + taxVt + taxIr + taxSaude);
+		inputTotalDesconto(totalDesconto);
+
 		// Tabela de Descontos - Linha Total
 		const total = parseFloat(((((valor - taxInss) - taxVr) - taxVt) - taxIr) - taxSaude);
 		inputTotal(total);
@@ -145,6 +149,12 @@ function inputInss(taxInss, aliInss){
 	const linhaValorInss = document.getElementById('idLinhaValorInss');
 	linhaAliInss.innerHTML = aliInss + " %";
 	linhaValorInss.innerHTML = "R$ " + taxInssArredondado;
+}
+
+function inputTotalDesconto(totalDesconto){
+	const totalDescontoArredondado = parseFloat(totalDesconto.toFixed(2));
+	const linhaTotalDesconto = document.getElementById('idLinhaTotalDesconto');
+	linhaTotalDesconto.innerHTML = "R$ " + totalDescontoArredondado;
 }
 
 function inputTotal(total){
