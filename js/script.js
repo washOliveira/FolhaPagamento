@@ -1,5 +1,7 @@
 const button = document.getElementById('calc');
 const input = document.getElementById('valor');
+const inputVr = document.getElementById('idValorVr');
+const inputS = document.getElementById('idValorSaude');
 const buttonPrint = document.getElementById('print');
 
 function click(){
@@ -114,10 +116,10 @@ function folhaPagamento(){
 
 // Tabela de Desconto ------------------
 const objFaixaINSS = {
-	inssF1: 1659.38,
-	inssF2: 2765.66,
-	inssF3: 5531.31,
-	fixo: 608.44
+	inssF1: 1751.81,
+	inssF2: 2919.72,
+	inssF3: 5839.45,
+	fixo: 642.34
 }
 
 function alicotaINSS(valorInss){	
@@ -164,11 +166,11 @@ function inputTotal(total){
 }
 
 const objFaixaVr = {
-	vrF1: 1703.35,
-	vrF2: 2882.62,
-	vrF3: 4192.90,
-	vrF4: 5241.12,
-	vrF5: 6420.38
+	vrF1: 1817.71,
+	vrF2: 3076.13,
+	vrF3: 4474.37,
+	vrF4: 5592.97,
+	vrF5: 6851.40
 }
 
 function alicotaVR(valor){
@@ -221,10 +223,10 @@ function inputVt(taxVt, aliVt){
 }
 
 const objFaixaIR = {
-	irF1: 1903.98,
-	irF2: 922.67,
-	irF3: 924.40,
-	irF4: 913.63
+	irF1: 1903.99,
+	irF2: 922.66,
+	irF3: 924.39,
+	irF4: 913.62
 }
 
 const objFaixaAliIR = {
@@ -280,8 +282,8 @@ function inputIr(taxIr, aliIr){
 }
 
 const objFaixaSaude = {
-	saudeF1: 1932.18,
-	saudeF2: 3221.22
+	saudeF1: 2027.63,
+	saudeF2: 3380.35
 }
 
 const objFaixaAliSaude = {
@@ -353,6 +355,8 @@ function inputBaseIR(baseIr){
 
 button.addEventListener("click", click);
 input.addEventListener("keypress", enter);
+inputVr.addEventListener("keypress", enter);
+inputS.addEventListener("keypress", enter);
 
 // Funcionalidade de Impressão -------------
 
