@@ -1,4 +1,4 @@
-const button = document.getElementById('calc');
+const button = document.getElementById("calc");
 const input = document.getElementById('valor');
 const inputVr = document.getElementById('idValorVr');
 const inputS = document.getElementById('idValorSaude');
@@ -9,7 +9,7 @@ function click(){
 }
 
 function enter(event){
-	if(event.keyCode === 13){
+	if(event.key === "Enter"){
 		folhaPagamento();
 	}
 }
@@ -29,7 +29,7 @@ function folhaPagamento(){
 		let taxInss = 0;
 		let aliInss = 0; 
 		
-		if(checkInss.checked == true){
+		if(checkInss.checked === true){
 			aliInss = alicotaINSS(valor);
 			taxInss = taxaINSS(valor, aliInss);
 			inputInss(taxInss, aliInss);			
@@ -41,7 +41,7 @@ function folhaPagamento(){
 		let taxVr = 0;
 		let aliVr = 0;
 		
-		if(checkVr.checked == true){
+		if(checkVr.checked === true){
 			if(valorVr > "0"){
 				aliVr = alicotaVR(valor);
 				taxVr = taxaVR(valorVr, aliVr);
@@ -57,7 +57,7 @@ function folhaPagamento(){
 		let taxVt = 0;
 		let aliVt = 0;
 		
-		if(checkVt.checked == true){
+		if(checkVt.checked === true){
 			aliVt = objFaixaVT.aliVt;
 			taxVt = taxVT(valor);
 			inputVt(taxVt, aliVt);
@@ -77,7 +77,7 @@ function folhaPagamento(){
 		let aliIr = 0;
 		let taxIr = 0;
 		
-		if(checkIr.checked == true){
+		if(checkIr.checked === true){
 			aliIr = alicotaIR(baseIr);
 			taxIr = taxIR(baseIr);
 			inputIr(taxIr, aliIr);
@@ -89,7 +89,7 @@ function folhaPagamento(){
 		let aliSaude = 0;
 		let taxSaude = 0;
 		
-		if (checkSaude.checked == true){
+		if (checkSaude.checked === true){
 			if(valorSaude > 0){
 				aliSaude = alicotaSaude(valor);
 				taxSaude = taxSAUDE(valor, valorSaude);
@@ -102,11 +102,11 @@ function folhaPagamento(){
 		}
 		
 		// Tabela de Descontos - Linha Total de Descontos
-		const totalDesconto = parseFloat(taxInss + taxVr + taxVt + taxIr + taxSaude);
+		const totalDesconto = taxInss + taxVr + taxVt + taxIr + taxSaude;
 		inputTotalDesconto(totalDesconto);
 
 		// Tabela de Descontos - Linha Total
-		const total = parseFloat(((((valor - taxInss) - taxVr) - taxVt) - taxIr) - taxSaude);
+		const total = ((((valor - taxInss) - taxVr) - taxVt) - taxIr) - taxSaude;
 		inputTotal(total);
 
 	}else{
@@ -120,7 +120,7 @@ const objFaixaINSS = {
 	inssF2: 2919.72,
 	inssF3: 5839.45,
 	fixo: 642.34
-}
+};
 
 function alicotaINSS(valorInss){	
 	let aliInss = 0;
@@ -171,7 +171,7 @@ const objFaixaVr = {
 	vrF3: 4474.37,
 	vrF4: 5592.97,
 	vrF5: 6851.40
-}
+};
 
 function alicotaVR(valor){
 	let aliVr = 0;
@@ -193,8 +193,7 @@ function alicotaVR(valor){
 }
 
 function taxaVR(valorVr, aliVr){
-	 const taxVr = (valorVr * aliVr)/100;
-	 return taxVr;
+	return (valorVr * aliVr)/100;
 }
 
 function inputVR(taxVr, aliVr){
@@ -207,11 +206,10 @@ function inputVR(taxVr, aliVr){
 
 const objFaixaVT = {
 	aliVt: 6
-}
+};
 
 function taxVT(valor){
-	const taxVt = (valor * objFaixaVT.aliVt)/100;
-	return taxVt;
+	return (valor * objFaixaVT.aliVt)/100;
 }
 
 function inputVt(taxVt, aliVt){
@@ -227,7 +225,7 @@ const objFaixaIR = {
 	irF2: 922.66,
 	irF3: 924.39,
 	irF4: 913.62
-}
+};
 
 const objFaixaAliIR = {
 	irAliF1: 0,
@@ -235,11 +233,10 @@ const objFaixaAliIR = {
 	irAliF3: 15,
 	irAliF4: 22.5,
 	irAliF5: 27.5
-}
+};
 
 function alicotaIR(baseIr){
 	let aliIr = 0;
-	let taxIr = 0;
 	
 	if(baseIr > 0 && baseIr <= objFaixaIR.irF1){
 		aliIr = objFaixaAliIR.irAliF1;
@@ -256,7 +253,6 @@ function alicotaIR(baseIr){
 }
 
 function taxIR(baseIr){
-	let aliIr = 0;
 	let taxIr = 0;
 		
 	if(baseIr > 0 && baseIr <= objFaixaIR.irF1){
@@ -284,15 +280,17 @@ function inputIr(taxIr, aliIr){
 const objFaixaSaude = {
 	saudeF1: 2027.63,
 	saudeF2: 3380.35
-}
+};
 
 const objFaixaAliSaude = {
 	aliSaudeF1: 70,
 	aliSaudeF2: 60,
 	aliSaudeF3: 50
-}
+};
 
 function alicotaSaude(valor){
+	let aliSaude = 0;
+
 	if(valor <= objFaixaSaude.saudeF1){
 		aliSaude = objFaixaAliSaude.aliSaudeF1;
 	}else if(valor > objFaixaSaude.saudeF1 && valor <= objFaixaSaude.saudeF2){
@@ -304,6 +302,8 @@ function alicotaSaude(valor){
 }
 
 function taxSAUDE(valor, valorSaude){
+	let taxSaude = 0;
+
 	if(valor <= objFaixaSaude.saudeF1){
 		taxSaude = valorSaude - ((valorSaude * objFaixaAliSaude.aliSaudeF1) / 100);
 	}else if(valor > objFaixaSaude.saudeF1 && valor <= objFaixaSaude.saudeF2){
@@ -326,11 +326,10 @@ function inputSaude(taxSaude, aliSaude){
 // Tabela de Apoio ------------------
 const objFaixaFGTS = {
 	aliFGTS: 8
-}
+};
 
 function valorFgts(valor){
-	const taxFgts = (valor * objFaixaFGTS.aliFGTS)/100;
-	return taxFgts;
+	return (valor * objFaixaFGTS.aliFGTS)/100;
 }
 
 function inputFgts(taxFgts){
@@ -342,8 +341,7 @@ function inputFgts(taxFgts){
 }
 
 function baseIR(valor, taxInss){
-	let baseIr = valor - taxInss;
-	return baseIr;
+	return valor - taxInss;
 }
 
 function inputBaseIR(baseIr){

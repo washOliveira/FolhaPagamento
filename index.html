@@ -5,6 +5,11 @@
 <!-- CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="css/style.css">
+
+<!-- jQuery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
 </head>
 
 <body>
@@ -13,8 +18,8 @@
 			<div class="col-md-3"><!-- Início Coluna 1 -->
 			</div><!-- Fim Coluna 1 -->
 
-			<div class="col-md-6"><!-- Início Coluna 2 -->
-				<div class="well well-lg"> 
+			<div class="col-md-6 well well-lg"><!-- Início Coluna 2 -->
+				<div>
 					<div class="page-header"><!-- Título -->
 						<h1>Folha de Pagamento</h1>
 					</div><!-- Fim Título -->
@@ -23,7 +28,8 @@
 						<div class="form-group">
 							<label class="control-label col-sm-3">Valor:</label>
 							<div class="col-sm-9">
-								<input id="valor" type="number" class="form-control" placeholder="Valor Bruto (R$)" name="valor"/>
+								<label><input type="number" name="valor" id="valor" class="form-control" placeholder="Valor Bruto (R$)" /></label>
+							</div>
 						</div>
 
 						<div class="form-group">
@@ -36,23 +42,22 @@
 								<div class="checkbox">
 									<label>
 										<input type="checkbox" id="idCheckVr"> Auxílio Alimentação
-										<div class="clic" style="display:none">
-											<input type="number" class="form-control" id="idValorVr" placeholder=" Valor (R$)"/>
-										</div>
+										<label class="clic" style="display:none"><input type="number" class="form-control" id="idValorVr" placeholder=" Valor (R$)"/></label>
 									</label>
 								</div>
+
 								<div class="checkbox">
 									<label><input type="checkbox" id="idCheckVt"> Auxílio Transporte</label>
 								</div>
+
 								<div class="checkbox">
 									<label><input type="checkbox" id="idCheckIr"> Imposto de Renda</label>
 								</div>
+
 								<div class="checkbox">
 									<label>
 										<input type="checkbox" id="idCheckSaude"> Plano de Saúde
-										<div class="clic" style="display:none">
-											<input type="number" class="form-control" id="idValorSaude" placeholder=" Valor (R$)"/>
-										</div>
+										<label class="clic" style="display:none"><input type="number" class="form-control" id="idValorSaude" placeholder=" Valor (R$)"/></label>
 									</label>
 								</div>
 							</div>
@@ -68,65 +73,73 @@
 
 				<div class="well well-lg"><!-- Tabela de descontos -->
 					<table class="table table-striped">
-						<caption>Tabela de Descontos</caption>
+						<caption><label>Tabela de Descontos</label></caption>
 						<thead><!-- Cabeçalho da lista -->
-							<th>Item</th>
-							<th>Alíquota (%)</th>
-							<th>Valor (R$)</th>
+							<tr>
+								<th>Item</th>
+								<th>Alíquota (%)</th>
+								<th>Valor (R$)</th>
+							</tr>
 						</thead>
-						<tr>
-							<td>INSS</td><!-- Item -->
-							<td id="idLinhaAliInss"></td>
-							<td id="idLinhaValorInss" value=""></td>
-						</tr>
-						<tr>
-							<td>Auxílio Alimentação</td><!-- Item -->
-							<td id="idLinhaAliVr"></td>
-							<td id="idLinhaValorVr" value=""></td>
-						</tr>
-						<tr>
-							<td>Auxílio Transporte</td><!-- Item -->
-							<td id="idLinhaAliVt"></td>
-							<td id="idLinhaValorVt" value=""></td>
-						</tr>
-						<tr>
-							<td>Imposto de Renda</td><!-- Item -->
-							<td id="idLinhaAliIr"></td>
-							<td id="idLinhaValorIr" value=""></td>
-						</tr>
-						<tr>
-							<td>Plano de Saúde</td><!-- Item -->
-							<td id="idLinhaAliSaude"></td>
-							<td id="idLinhaValorSaude" value=""></td>
-						</tr>
-						<tr><!-- Linha de Total de Descontos -->
-							<td colspan="2"><b>Total de Descontos</b></td>
-							<td id="idLinhaTotalDesconto" value=""><b></b></td>
-						</tr>
-						<tr><!-- Linha de Total a Receber -->
-							<td colspan="2"><b>Total a Receber</b></td>
-							<td id="idLinhaTotal" value=""><b></b></td>
-						</tr>
+						<tbody>
+							<tr data-toggle="tooltip" data-placement="left" title="INSS">
+								<td>INSS</td><!-- Item -->
+								<td id="idLinhaAliInss"></td>
+								<td id="idLinhaValorInss"></td>
+							</tr>
+							<tr>
+								<td>Auxílio Alimentação</td><!-- Item -->
+								<td id="idLinhaAliVr"></td>
+								<td id="idLinhaValorVr"></td>
+							</tr>
+							<tr>
+								<td>Auxílio Transporte</td><!-- Item -->
+								<td id="idLinhaAliVt"></td>
+								<td id="idLinhaValorVt"></td>
+							</tr>
+							<tr>
+								<td>Imposto de Renda</td><!-- Item -->
+								<td id="idLinhaAliIr"></td>
+								<td id="idLinhaValorIr"></td>
+							</tr>
+							<tr>
+								<td>Plano de Saúde</td><!-- Item -->
+								<td id="idLinhaAliSaude"></td>
+								<td id="idLinhaValorSaude"></td>
+							</tr>
+							<tr><!-- Linha de Total de Descontos -->
+								<td colspan="2"><b>Total de Descontos</b></td>
+								<td id="idLinhaTotalDesconto"><b></b></td>
+							</tr>
+							<tr><!-- Linha de Total a Receber -->
+								<td colspan="2"><b>Total a Receber</b></td>
+								<td id="idLinhaTotal"><b></b></td>
+							</tr>
+						</tbody>
 					</table>
 				</div><!-- Fim Tabela de descontos -->
 
 				<div class="well well-lg"><!-- Tabela apoio -->
 					<table class="table table-striped">
-						<caption>Tabela de Apoio</caption>
+						<caption><label>Tabela de Apoio</label></caption>
 						<thead><!-- Cabeçalho da lista -->
-							<th>Item</th>
-							<th>Alíquota (%)</th>
-							<th>Valor (R$)</th>
+							<tr>
+								<th>Item</th>
+								<th>Alíquota (%)</th>
+								<th>Valor (R$)</th>
+							</tr>
 						</thead>
-						<tr>
-							<td>FGTS a recolher</td><!-- Item -->
-							<td id="idLinhaAliFgts"></td>
-							<td id="idLinhaValorFgts" value=""></td>
-						</tr>
-						<tr>
-							<td colspan="2">Base do IR</td><!-- Item -->
-							<td id="idLinhaValorBaseIr" value=""></td>
-						</tr>
+						<tbody>
+							<tr>
+								<td>FGTS a recolher</td><!-- Item -->
+								<td id="idLinhaAliFgts"></td>
+								<td id="idLinhaValorFgts"></td>
+							</tr>
+							<tr>
+								<td colspan="2">Base do IR</td><!-- Item -->
+								<td id="idLinhaValorBaseIr"></td>
+							</tr>
+						</tbody>
 					</table>
 				</div><!-- Fim Tabela apoio -->
 
@@ -143,5 +156,10 @@
 
 	<!-- JavaScript -->
 	<script type="text/javascript" src="js/script.js"></script>
+	<script>
+		$(document).ready(function(){
+			$('[data-toggle="tooltip"]').tooltip();
+		});
+	</script>
 </body>
 </html>
