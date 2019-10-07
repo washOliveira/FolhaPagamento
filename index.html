@@ -29,7 +29,22 @@
 							<label class="control-label col-sm-3">Valor:</label>
 							<div class="col-sm-9">
 								<label><input type="number" name="valor" id="valor" class="form-control" placeholder="Valor Bruto (R$)" /></label>
-							</div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox" id="idCheckAdd"> Adicional por tempo de trabalho
+                                        <label class="clic" style="display:none">
+                                            <select name="Periodicidade" class="form-control" id="idValorPeriodicidade">
+                                                <option value="1">Anuênio</optionval>
+                                                <option value="2">Biênio</optionval>
+                                                <option value="3">Triênio</optionval>
+                                                <option value="5">Quinquênio</optionval>
+                                            </select>
+                                            <input type="number" class="form-control" id="idValorPeriodicidadeTempo" placeholder="Tempo de empresa (anos)"/>
+                                            <input type="number" class="form-control" id="idValorPeriodicidadePercentagemAplicada" placeholder="% aplicada"/>
+                                        </label>
+                                    </label>
+                                </div>
+                            </div>
 						</div>
 
 						<div class="form-group">
@@ -42,7 +57,7 @@
 								<div class="checkbox">
 									<label>
 										<input type="checkbox" id="idCheckVr"> Auxílio Alimentação
-										<label class="clic" style="display:none"><input type="number" class="form-control" id="idValorVr" placeholder=" Valor (R$)"/></label>
+										<label class="clic" style="display:none"><input type="number" class="form-control" id="idValorVr" placeholder="Valor (R$)"/></label>
 									</label>
 								</div>
 
@@ -57,7 +72,7 @@
 								<div class="checkbox">
 									<label>
 										<input type="checkbox" id="idCheckSaude"> Plano de Saúde
-										<label class="clic" style="display:none"><input type="number" class="form-control" id="idValorSaude" placeholder=" Valor (R$)"/></label>
+										<label class="clic" style="display:none"><input type="number" class="form-control" id="idValorSaude" placeholder="Valor (R$)"/></label>
 									</label>
 								</div>
 							</div>
@@ -136,7 +151,7 @@
 								<td id="idLinhaValorFgts"></td>
 							</tr>
 							<tr>
-								<td colspan="2">Base do IR</td><!-- Item -->
+								<td colspan="2">Base do IRRF</td><!-- Item -->
 								<td id="idLinhaValorBaseIr"></td>
 							</tr>
 						</tbody>

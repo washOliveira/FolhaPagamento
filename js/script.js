@@ -23,9 +23,21 @@ function folhaPagamento(){
 	const checkIr = document.getElementById('idCheckIr');
 	const checkSaude = document.getElementById('idCheckSaude');
 	const valorSaude = document.getElementById('idValorSaude').value;
+    const CheckAdd = document.getElementById('idCheckAdd');
+    const valorPeriodicidade = document.getElementById('idValorPeriodicidade').value;
+    const valorPeriodicidadeTempo = document.getElementById('idValorPeriodicidadeTempo').value;
+    const valorPeriodicidadePorcentagemAplicada = document.getElementById('idValorPeriodicidadePercentagemAplicada').value;
 
 	if(valor > "0"){
-		// Tabela de Descontos - Linha INSS
+        // Campos "Adicional por tempo de trabalho"
+        if(CheckAdd.checked === true){
+                let valor2 = 0;
+                let addTempoTrabalho = (Math.floor(valorPeriodicidadeTempo/valorPeriodicidade)*((valor*valorPeriodicidadePorcentagemAplicada)/100));
+                valor2 = valor + addTempoTrabalho;
+                console.log(valor2);
+        }
+
+        // Tabela de Descontos - Linha INSS
 		let taxInss = 0;
 		let aliInss = 0; 
 		

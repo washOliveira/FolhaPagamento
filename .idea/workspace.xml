@@ -36,6 +36,16 @@
       </list>
     </option>
   </component>
+  <component name="RunManager">
+    <configuration name="script.js" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/js/script.js" working-dir="$PROJECT_DIR$/js">
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Node.js.script.js" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -48,6 +58,7 @@
       <updated>1569512052330</updated>
       <workItem from="1569512066547" duration="4363000" />
       <workItem from="1569528210018" duration="6495000" />
+      <workItem from="1570464306109" duration="12490000" />
     </task>
     <servers />
   </component>
