@@ -26,7 +26,7 @@
 				
 					<form class="well well-lg form-horizontal" name="FirstForm"><!-- Formulário -->
 						<div class="form-group">
-							<label class="control-label col-sm-3">Valor:</label>
+							<label class="control-label col-sm-3">Salário base:</label>
 							<div class="col-sm-9">
 								<label><input type="number" name="valor" id="valor" class="form-control" placeholder="Valor Bruto (R$)" /></label>
                                 <div class="checkbox">
@@ -34,10 +34,10 @@
                                         <input type="checkbox" id="idCheckAdd"> Adicional por tempo de trabalho
                                         <label class="clic" style="display:none">
                                             <select name="Periodicidade" class="form-control" id="idValorPeriodicidade">
-                                                <option value="1">Anuênio</optionval>
-                                                <option value="2">Biênio</optionval>
-                                                <option value="3">Triênio</optionval>
-                                                <option value="5">Quinquênio</optionval>
+                                                <option value="1">Anuênio</option>
+                                                <option value="2">Biênio</option>
+                                                <option value="3">Triênio</option>
+                                                <option value="5">Quinquênio</option>
                                             </select>
                                             <input type="number" class="form-control" id="idValorPeriodicidadeTempo" placeholder="Tempo de empresa (anos)"/>
                                             <input type="number" class="form-control" id="idValorPeriodicidadePercentagemAplicada" placeholder="% aplicada"/>
@@ -92,43 +92,65 @@
 						<thead><!-- Cabeçalho da lista -->
 							<tr>
 								<th>Item</th>
-								<th>Alíquota (%)</th>
-								<th>Valor (R$)</th>
+								<th>Alíquota</th>
+								<th>Provento</th>
+								<th>Desconto</th>
 							</tr>
 						</thead>
 						<tbody>
-							<tr data-toggle="tooltip" data-placement="left" title="INSS">
-								<td>INSS</td><!-- Item -->
-								<td id="idLinhaAliInss"></td>
-								<td id="idLinhaValorInss"></td>
+							<tr>
+								<td>Salário base</td><!-- Item -->
+								<td id="idLinhaAliValor"></td>
+								<td id="idLinhaValor"></td>
+								<td></td>
 							</tr>
 							<tr>
-								<td>Auxílio Alimentação</td><!-- Item -->
-								<td id="idLinhaAliVr"></td>
-								<td id="idLinhaValorVr"></td>
+								<td>Adicional por tempo de trabalho</td><!-- Item -->
+								<td id="idLinhaAliAdd"></td>
+								<td id="idLinhaAdd"></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td>INSS</td><!-- Item -->
+								<td id="idLinhaAliInss"></td>
+								<td></td>
+								<td id="idLinhaValorInss"></td>
 							</tr>
 							<tr>
 								<td>Auxílio Transporte</td><!-- Item -->
 								<td id="idLinhaAliVt"></td>
+								<td></td>
 								<td id="idLinhaValorVt"></td>
+							</tr>
+							<tr>
+								<td>Auxílio Alimentação</td><!-- Item -->
+								<td id="idLinhaAliVr"></td>
+								<td></td>
+								<td id="idLinhaValorVr"></td>
 							</tr>
 							<tr>
 								<td>Imposto de Renda</td><!-- Item -->
 								<td id="idLinhaAliIr"></td>
+								<td></td>
 								<td id="idLinhaValorIr"></td>
 							</tr>
 							<tr>
 								<td>Plano de Saúde</td><!-- Item -->
 								<td id="idLinhaAliSaude"></td>
+								<td></td>
 								<td id="idLinhaValorSaude"></td>
+							</tr>
+							<tr><!-- Linha de Total de Proventos -->
+								<td colspan="2"><b>Total de Proventos</b></td>
+								<td colspan="2" id="idLinhaTotalProvento"><b></b></td>
 							</tr>
 							<tr><!-- Linha de Total de Descontos -->
 								<td colspan="2"><b>Total de Descontos</b></td>
-								<td id="idLinhaTotalDesconto"><b></b></td>
+								<td colspan="2" id="idLinhaTotalDesconto"><b></b></td>
 							</tr>
 							<tr><!-- Linha de Total a Receber -->
-								<td colspan="2"><b>Total a Receber</b></td>
-								<td id="idLinhaTotal"><b></b></td>
+								<td colspan="2"><b>Total Líquido</b></td>
+								<td colspan="2" id="idLinhaTotal"><b></b></td>
 							</tr>
 						</tbody>
 					</table>
@@ -171,10 +193,4 @@
 
 	<!-- JavaScript -->
 	<script type="text/javascript" src="js/script.js"></script>
-	<script>
-		$(document).ready(function(){
-			$('[data-toggle="tooltip"]').tooltip();
-		});
-	</script>
 </body>
-</html>
