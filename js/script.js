@@ -42,7 +42,7 @@ function folhaPagamento(){
 				valorAdd = parseFloat(valor) + addTempoTrabalho;
 				inputAdd(addTempoTrabalho, valorPeriodicidadePorcentagemAplicada);
 			}else{
-				alert("Tente um valor positivo para os campos Tempo de Empresa e % Aplicada ou desmarque esta opção.");
+				alert("Tente um valor positivo para os campos Tempo de Empresa e % Aplicada ou desmarque a opção 'Adicional por tempo de trabalho'.");
 			}
         }else{
         	valorAdd = valor;
