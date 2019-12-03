@@ -1,4 +1,4 @@
-const button = document.getElementById('calc');
+const button = document.getElementById("calc");
 const input = document.getElementById('valor');
 const inputVr = document.getElementById('idValorVr');
 const inputS = document.getElementById('idValorSaude');
@@ -9,7 +9,7 @@ function click(){
 }
 
 function enter(event){
-	if(event.keyCode === 13){
+	if(event.key === "Enter"){
 		folhaPagamento();
 	}
 }
@@ -23,15 +23,39 @@ function folhaPagamento(){
 	const checkIr = document.getElementById('idCheckIr');
 	const checkSaude = document.getElementById('idCheckSaude');
 	const valorSaude = document.getElementById('idValorSaude').value;
+    const CheckAdd = document.getElementById('idCheckAdd');
+    const valorPeriodicidade = document.getElementById('idValorPeriodicidade').value;
+    const valorPeriodicidadeTempo = document.getElementById('idValorPeriodicidadeTempo').value;
+    const valorPeriodicidadePorcentagemAplicada = document.getElementById('idValorPeriodicidadePercentagemAplicada').value;
 
 	if(valor > "0"){
-		// Tabela de Descontos - Linha INSS
+		// Tabela de Descontos - Linha Salário Base
+		inputSalarioBase(valor);
+
+        // Tabela de Descontos - Linha Adicional por tempo de trabalho
+		let valorAdd = 0;
+		let addTempoTrabalho = 0;
+
+        if(CheckAdd.checked === true){
+        	if(valorPeriodicidadeTempo > "0" && valorPeriodicidadePorcentagemAplicada > "0") {
+				addTempoTrabalho = Math.floor(valorPeriodicidadeTempo / valorPeriodicidade) * ((valor * valorPeriodicidadePorcentagemAplicada) / 100);
+				valorAdd = parseFloat(valor) + addTempoTrabalho;
+				inputAdd(addTempoTrabalho, valorPeriodicidadePorcentagemAplicada);
+			}else{
+				alert("Tente um valor positivo para os campos Tempo de Empresa e % Aplicada ou desmarque esta opção.");
+			}
+        }else{
+        	valorAdd = valor;
+        	inputAdd(addTempoTrabalho, valorPeriodicidadePorcentagemAplicada);
+		}
+
+        // Tabela de Descontos - Linha INSS
 		let taxInss = 0;
 		let aliInss = 0; 
 		
-		if(checkInss.checked == true){
-			aliInss = alicotaINSS(valor);
-			taxInss = taxaINSS(valor, aliInss);
+		if(checkInss.checked === true){
+			aliInss = alicotaINSS(valorAdd);
+			taxInss = taxaINSS(valorAdd, aliInss);
 			inputInss(taxInss, aliInss);			
 		}else{
 			inputInss(taxInss, aliInss);
@@ -41,9 +65,9 @@ function folhaPagamento(){
 		let taxVr = 0;
 		let aliVr = 0;
 		
-		if(checkVr.checked == true){
+		if(checkVr.checked === true){
 			if(valorVr > "0"){
-				aliVr = alicotaVR(valor);
+				aliVr = alicotaVR(valorAdd);
 				taxVr = taxaVR(valorVr, aliVr);
 				inputVR(taxVr, aliVr);
 			}else if(valorVr <= 0){
@@ -57,7 +81,7 @@ function folhaPagamento(){
 		let taxVt = 0;
 		let aliVt = 0;
 		
-		if(checkVt.checked == true){
+		if(checkVt.checked === true){
 			aliVt = objFaixaVT.aliVt;
 			taxVt = taxVT(valor);
 			inputVt(taxVt, aliVt);
@@ -66,18 +90,18 @@ function folhaPagamento(){
 		}
 		
 		// Tabela de Descontos - Linha FGTS
-		const taxFgts = valorFgts(valor);
+		const taxFgts = valorFgts(valorAdd);
 		inputFgts(taxFgts);
 		
 		// Tabela de Descontos - Linha Base IR
-		const baseIr = baseIR(valor, taxInss);
+		const baseIr = baseIR(valorAdd, taxInss);
 		inputBaseIR(baseIr);
 				
 		// Tabela de Descontos - Linha Imposto de Renda
 		let aliIr = 0;
 		let taxIr = 0;
 		
-		if(checkIr.checked == true){
+		if(checkIr.checked === true){
 			aliIr = alicotaIR(baseIr);
 			taxIr = taxIR(baseIr);
 			inputIr(taxIr, aliIr);
@@ -89,10 +113,10 @@ function folhaPagamento(){
 		let aliSaude = 0;
 		let taxSaude = 0;
 		
-		if (checkSaude.checked == true){
+		if (checkSaude.checked === true){
 			if(valorSaude > 0){
-				aliSaude = alicotaSaude(valor);
-				taxSaude = taxSAUDE(valor, valorSaude);
+				aliSaude = alicotaSaude(valorAdd);
+				taxSaude = taxSAUDE(valorAdd, valorSaude);
 				inputSaude(taxSaude, aliSaude);
 			}else if(valorSaude <= 0){
 				alert("Tente um valor positivo para o campo Plano de Saúde ou desmarque esta opção.");
@@ -100,29 +124,47 @@ function folhaPagamento(){
 		}else{
 			inputSaude(taxSaude, aliSaude);
 		}
-		
+
+		// Tabela de Descontos - Linha total de Proventos
+		//TODO: verificar porque os valores totais só são apresentados quando a opção "Adicional por tempo de trabalho" é marcada
+		inputTotalProvento(valorAdd);
+
 		// Tabela de Descontos - Linha Total de Descontos
-		const totalDesconto = parseFloat(taxInss + taxVr + taxVt + taxIr + taxSaude);
+		const totalDesconto = taxInss + taxVr + taxVt + taxIr + taxSaude;
 		inputTotalDesconto(totalDesconto);
 
 		// Tabela de Descontos - Linha Total
-		const total = parseFloat(((((valor - taxInss) - taxVr) - taxVt) - taxIr) - taxSaude);
+		const total = ((((valorAdd - taxInss) - taxVr) - taxVt) - taxIr) - taxSaude;
 		inputTotal(total);
 
 	}else{
-		alert("Tente um valor positivo!");
+		alert("Tente um valor positivo para o campo Salário base!");
 	}
 }
 
 // Tabela de Desconto ------------------
+function inputSalarioBase(valor) {
+	const linhaAliValor = document.getElementById('idLinhaAliValor');
+	const linhaSalarioBase = document.getElementById('idLinhaValor');
+	linhaAliValor.innerHTML = "100 %";
+	linhaSalarioBase.innerHTML = "R$ " + valor;
+}
+
+function inputAdd(addTempoTrabalho, valorPeriodicidadePorcentagemAplicada){
+	const linhaAliAdd = document.getElementById('idLinhaAliAdd');
+	const linhaAdd = document.getElementById('idLinhaAdd');
+	linhaAliAdd.innerHTML = valorPeriodicidadePorcentagemAplicada + " %";
+	linhaAdd.innerHTML = "R$ " + addTempoTrabalho.toFixed(2);
+}
+
 const objFaixaINSS = {
 	inssF1: 1751.81,
 	inssF2: 2919.72,
 	inssF3: 5839.45,
 	fixo: 642.34
-}
+};
 
-function alicotaINSS(valorInss){	
+function alicotaINSS(valorInss){
 	let aliInss = 0;
 
 	if(valorInss > 0 && valorInss <= objFaixaINSS.inssF1){
@@ -137,9 +179,9 @@ function alicotaINSS(valorInss){
 	return aliInss;
 }
 
-function taxaINSS(valor, aliINSS){
-	if(valor < objFaixaINSS.inssF3){
-		return (valor * aliINSS)/100;
+function taxaINSS(valorAdd, aliINSS){
+	if(valorAdd < objFaixaINSS.inssF3){
+		return (valorAdd * aliINSS)/100;
 	}else{
 		return objFaixaINSS.fixo;
 	}
@@ -151,6 +193,11 @@ function inputInss(taxInss, aliInss){
 	const linhaValorInss = document.getElementById('idLinhaValorInss');
 	linhaAliInss.innerHTML = aliInss + " %";
 	linhaValorInss.innerHTML = "R$ " + taxInssArredondado;
+}
+
+function inputTotalProvento(valorAdd) {
+	const linhaTotalProvento = document.getElementById('idLinhaTotalProvento');
+	linhaTotalProvento.innerHTML = "R$ " + valorAdd.toFixed(2);
 }
 
 function inputTotalDesconto(totalDesconto){
@@ -171,30 +218,29 @@ const objFaixaVr = {
 	vrF3: 4474.37,
 	vrF4: 5592.97,
 	vrF5: 6851.40
-}
+};
 
-function alicotaVR(valor){
+function alicotaVR(valorAdd){
 	let aliVr = 0;
 	
-	if(valor > 0 && valor <= objFaixaVr.vrF1){
+	if(valorAdd > 0 && valorAdd <= objFaixaVr.vrF1){
 		aliVr = 0;
-	}else if(valor > objFaixaVr.vrF1 && valor <= objFaixaVr.vrF2){
+	}else if(valorAdd > objFaixaVr.vrF1 && valorAdd <= objFaixaVr.vrF2){
 		aliVr = 5;
-	}else if(valor > objFaixaVr.vrF2 && valor <= objFaixaVr.vrF3){
+	}else if(valorAdd > objFaixaVr.vrF2 && valorAdd <= objFaixaVr.vrF3){
 		aliVr = 7.5;
-	}else if(valor > objFaixaVr.vrF3 && valor <= objFaixaVr.vrF4){
+	}else if(valorAdd > objFaixaVr.vrF3 && valorAdd <= objFaixaVr.vrF4){
 		aliVr = 10;
-	}else if(valor > objFaixaVr.vrF4 && valor <= objFaixaVr.vrF5){
+	}else if(valorAdd > objFaixaVr.vrF4 && valorAdd <= objFaixaVr.vrF5){
 		aliVr = 15;
-	}else if(valor > objFaixaVr.vrF5){
+	}else if(valorAdd > objFaixaVr.vrF5){
 		aliVr = 20;
 	}
 	return aliVr;
 }
 
 function taxaVR(valorVr, aliVr){
-	 const taxVr = (valorVr * aliVr)/100;
-	 return taxVr;
+	return (valorVr * aliVr)/100;
 }
 
 function inputVR(taxVr, aliVr){
@@ -207,11 +253,10 @@ function inputVR(taxVr, aliVr){
 
 const objFaixaVT = {
 	aliVt: 6
-}
+};
 
 function taxVT(valor){
-	const taxVt = (valor * objFaixaVT.aliVt)/100;
-	return taxVt;
+	return (valor * objFaixaVT.aliVt)/100;
 }
 
 function inputVt(taxVt, aliVt){
@@ -227,7 +272,7 @@ const objFaixaIR = {
 	irF2: 922.66,
 	irF3: 924.39,
 	irF4: 913.62
-}
+};
 
 const objFaixaAliIR = {
 	irAliF1: 0,
@@ -235,11 +280,10 @@ const objFaixaAliIR = {
 	irAliF3: 15,
 	irAliF4: 22.5,
 	irAliF5: 27.5
-}
+};
 
 function alicotaIR(baseIr){
 	let aliIr = 0;
-	let taxIr = 0;
 	
 	if(baseIr > 0 && baseIr <= objFaixaIR.irF1){
 		aliIr = objFaixaAliIR.irAliF1;
@@ -256,7 +300,6 @@ function alicotaIR(baseIr){
 }
 
 function taxIR(baseIr){
-	let aliIr = 0;
 	let taxIr = 0;
 		
 	if(baseIr > 0 && baseIr <= objFaixaIR.irF1){
@@ -284,31 +327,35 @@ function inputIr(taxIr, aliIr){
 const objFaixaSaude = {
 	saudeF1: 2027.63,
 	saudeF2: 3380.35
-}
+};
 
 const objFaixaAliSaude = {
 	aliSaudeF1: 70,
 	aliSaudeF2: 60,
 	aliSaudeF3: 50
-}
+};
 
-function alicotaSaude(valor){
-	if(valor <= objFaixaSaude.saudeF1){
+function alicotaSaude(valorAdd){
+	let aliSaude = 0;
+
+	if(valorAdd <= objFaixaSaude.saudeF1){
 		aliSaude = objFaixaAliSaude.aliSaudeF1;
-	}else if(valor > objFaixaSaude.saudeF1 && valor <= objFaixaSaude.saudeF2){
+	}else if(valorAdd > objFaixaSaude.saudeF1 && valorAdd <= objFaixaSaude.saudeF2){
 		aliSaude = objFaixaAliSaude.aliSaudeF2;
-	}else if(valor > objFaixaSaude.saudeF2){
+	}else if(valorAdd > objFaixaSaude.saudeF2){
 		aliSaude = objFaixaAliSaude.aliSaudeF3;
 	}
 	return aliSaude;
 }
 
-function taxSAUDE(valor, valorSaude){
-	if(valor <= objFaixaSaude.saudeF1){
+function taxSAUDE(valorAdd, valorSaude){
+	let taxSaude = 0;
+
+	if(valorAdd <= objFaixaSaude.saudeF1){
 		taxSaude = valorSaude - ((valorSaude * objFaixaAliSaude.aliSaudeF1) / 100);
-	}else if(valor > objFaixaSaude.saudeF1 && valor <= objFaixaSaude.saudeF2){
+	}else if(valorAdd > objFaixaSaude.saudeF1 && valorAdd <= objFaixaSaude.saudeF2){
 		taxSaude = valorSaude - ((valorSaude * objFaixaAliSaude.aliSaudeF2) / 100);
-	}else if(valor > objFaixaSaude.saudeF2){
+	}else if(valorAdd > objFaixaSaude.saudeF2){
 		taxSaude = valorSaude - ((valorSaude * objFaixaAliSaude.aliSaudeF3) / 100);
 	}
 	return taxSaude;
@@ -326,11 +373,10 @@ function inputSaude(taxSaude, aliSaude){
 // Tabela de Apoio ------------------
 const objFaixaFGTS = {
 	aliFGTS: 8
-}
+};
 
-function valorFgts(valor){
-	const taxFgts = (valor * objFaixaFGTS.aliFGTS)/100;
-	return taxFgts;
+function valorFgts(valorAdd){
+	return (valorAdd * objFaixaFGTS.aliFGTS)/100;
 }
 
 function inputFgts(taxFgts){
@@ -341,9 +387,8 @@ function inputFgts(taxFgts){
 	linhaValorFgts.innerHTML = "R$ " + taxFgtsArredondado;	
 }
 
-function baseIR(valor, taxInss){
-	let baseIr = valor - taxInss;
-	return baseIr;
+function baseIR(valorAdd, taxInss){
+	return valorAdd - taxInss;
 }
 
 function inputBaseIR(baseIr){
