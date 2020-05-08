@@ -1,4 +1,4 @@
-const button = document.getElementById("calc");
+const button = document.getElementById('calc');
 const input = document.getElementById('valor');
 const inputVr = document.getElementById('idValorVr');
 const inputS = document.getElementById('idValorSaude');
@@ -51,11 +51,11 @@ function folhaPagamento(){
 
         // Tabela de Descontos - Linha INSS
 		let taxInss = 0;
-		let aliInss = 0; 
+		let aliInss = 0;
 		
 		if(checkInss.checked === true){
-			aliInss = alicotaINSS(valorAdd);
-			taxInss = taxaINSS(valorAdd, aliInss);
+			aliInss = alicotaINSS(valor);
+			taxInss = taxaINSS(valor);
 			inputInss(taxInss, aliInss);			
 		}else{
 			inputInss(taxInss, aliInss);
@@ -158,33 +158,60 @@ function inputAdd(addTempoTrabalho, valorPeriodicidadePorcentagemAplicada){
 }
 
 const objFaixaINSS = {
-	inssF1: 1751.81,
-	inssF2: 2919.72,
-	inssF3: 5839.45,
-	fixo: 642.34
-};
+	inssF1: 1045.00,
+	inssF2: 1044.59,
+	inssF3: 1044.79,
+	inssF4: 2966.65
+}
 
-function alicotaINSS(valorInss){
+const objFaixaAliINSS = {
+	inssAliF1: 7.5,
+	inssAliF2: 9,
+	inssAliF3: 12,
+	inssAliF4: 14,
+	inssAliF5: "Taxa fixa"
+}
+
+const taxaFixaInss = 713.09;
+
+function alicotaINSS(valorInss){	
 	let aliInss = 0;
 
 	if(valorInss > 0 && valorInss <= objFaixaINSS.inssF1){
-		aliInss = 8;
-	}else if (valorInss > objFaixaINSS.inssF1 && valorInss <= objFaixaINSS.inssF2){
-		aliInss = 9;
-	}else if (valorInss > objFaixaINSS.inssF2 && valorInss <= objFaixaINSS.inssF3){
-		aliInss = 11;
-	}else if (valorInss > objFaixaINSS.inssF3){
-		aliInss = "Taxa Fixa";
+		aliInss = objFaixaAliINSS.inssAliF1;
+	}else if ((valorInss - objFaixaINSS.inssF1) <= objFaixaINSS.inssF2){
+		aliInss = objFaixaAliINSS.inssAliF2;
+	}else if (((valorInss - objFaixaINSS.inssF1) - objFaixaINSS.inssF2) <= objFaixaINSS.inssF3){
+		aliInss = objFaixaAliINSS.inssAliF3;
+	}else if ((((valorInss - objFaixaINSS.inssF1) - objFaixaINSS.inssF2) - objFaixaINSS.inssF3) <= objFaixaINSS.inssF4){
+		aliInss = objFaixaAliINSS.inssAliF4;
+	}else if (valorInss > (objFaixaINSS.inssF1 + objFaixaINSS.inssF2 + objFaixaINSS.inssF3 + objFaixaINSS.inssF4)){
+		aliInss = objFaixaAliINSS.inssAliF5;
 	}
 	return aliInss;
 }
 
-function taxaINSS(valorAdd, aliINSS){
-	if(valorAdd < objFaixaINSS.inssF3){
-		return (valorAdd * aliINSS)/100;
-	}else{
-		return objFaixaINSS.fixo;
+function taxaINSS(valor){
+	let taxInss = 0;
+		
+	if(valor > 0 && valor <= objFaixaINSS.inssF1){
+		taxInss = (valor * objFaixaAliINSS.inssAliF1)/100;
+	}else if((valor - objFaixaINSS.inssF1) <= objFaixaINSS.inssF2){
+		taxInss =  ((valor - objFaixaINSS.inssF1) * objFaixaAliINSS.inssAliF2)/100 +
+		(objFaixaINSS.inssF1 * objFaixaAliINSS.inssAliF1)/100;
+	}else if(((valor - objFaixaINSS.inssF1) - objFaixaINSS.inssF2) <=  objFaixaINSS.inssF3){
+		taxInss = (((valor - objFaixaINSS.inssF1) - objFaixaINSS.inssF2) * objFaixaAliINSS.inssAliF3)/100 +
+		  (objFaixaINSS.inssF2 * objFaixaAliINSS.inssAliF2)/100 +
+		  (objFaixaINSS.inssF1 * objFaixaAliINSS.inssAliF1)/100;
+	}else if((((valor - objFaixaINSS.inssF1) - objFaixaINSS.inssF2) - objFaixaINSS.inssF3) <= objFaixaINSS.inssF4){
+		taxInss = ((((valor - objFaixaINSS.inssF1) - objFaixaINSS.inssF2) - objFaixaINSS.inssF3) * objFaixaAliINSS.inssAliF4)/100 +
+		  (objFaixaINSS.inssF3 * objFaixaAliINSS.inssAliF3)/100 +
+		  (objFaixaINSS.inssF2 * objFaixaAliINSS.inssAliF2)/100 +
+		  (objFaixaINSS.inssF1 * objFaixaAliINSS.inssAliF1)/100;
+	}else if(valor > (objFaixaINSS.inssF1 + objFaixaINSS.inssF2 + objFaixaINSS.inssF3 + objFaixaINSS.inssF4)){
+		taxInss = taxaFixaInss;
 	}
+	return taxInss;
 }
 
 function inputInss(taxInss, aliInss){
