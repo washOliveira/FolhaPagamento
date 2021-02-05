@@ -158,10 +158,10 @@ function inputAdd(addTempoTrabalho, valorPeriodicidadePorcentagemAplicada){
 }
 
 const objFaixaINSS = {
-	inssF1: 1045.00,
-	inssF2: 1044.59,
-	inssF3: 1044.79,
-	inssF4: 2966.65
+	inssF1: 1100.00,
+	inssF2: 1103.47,
+	inssF3: 1101.73,
+	inssF4: 3128.34
 }
 
 const objFaixaAliINSS = {
@@ -172,7 +172,7 @@ const objFaixaAliINSS = {
 	inssAliF5: "Taxa fixa"
 }
 
-const taxaFixaInss = 713.09;
+const taxaFixaInss = 751.97;
 
 function alicotaINSS(valorInss){	
 	let aliInss = 0;
