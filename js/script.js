@@ -33,7 +33,7 @@ function folhaPagamento(){
 		inputSalarioBase(valor);
 
         // Tabela de Descontos - Linha Adicional por tempo de trabalho
-		let valorAdd = 0;
+		let valorAdd = 0; 
 		let addTempoTrabalho = 0;
 
         if(CheckAdd.checked === true){
@@ -240,11 +240,11 @@ function inputTotal(total){
 }
 
 const objFaixaVr = {
-	vrF1: 1817.71,
-	vrF2: 3076.13,
-	vrF3: 4474.37,
-	vrF4: 5592.97,
-	vrF5: 6851.40
+	vrF1: 1861.34,
+	vrF2: 3149.96,
+	vrF3: 4581.75,
+	vrF4: 5727.20,
+	vrF5: 7015.84
 };
 
 function alicotaVR(valorAdd){
